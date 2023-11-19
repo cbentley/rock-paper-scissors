@@ -57,49 +57,73 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-    // Repeatedly calls playRound() to play a 5-round game that keeps score and reports a winner or loser at the end.
-
-    let playerScore = 0
-    let computerScore = 0
+    let playerScore = 0;
+    let computerScore = 0;
     let round;
     let playerSelection;
     let computerSelection;
+    let roundNum = 0;
+    let gameResult = '';
 
-    for (let i = 0; i < 5; i++) {
-        playerSelection = prompt("Please enter your play");
-        console.log(`Player chooses ${playerSelection}`);
+    const buttons = document.querySelectorAll('button');
+    const result = document.querySelector('.result');
 
-        computerSelection = getComputerChoice();
-        console.log(`Computer chooses ${computerSelection}`);
+    buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            roundNum++;
 
-        round = playRound(playerSelection, computerSelection);
+            result.innerHTML += `Round ${roundNum}<br>`;
 
-        if (round === "player") {
-            playerScore++;
-            console.log("Player wins round");
-        }
-        else if (round === "computer") {
-            computerScore++;
-            console.log("Computer wins round");
-        }
-        else if (round === "draw") {
-            console.log("This round is a draw");
-        }
+            // Player selection
+            playerSelection = e.target.textContent;
+            result.innerHTML += `Player chooses ${playerSelection}<br>`;
 
-        console.log(`Current score: Player ${playerScore} - ${computerScore} Computer\n\n`);
-    }
+            // Computer selection
+            computerSelection = getComputerChoice();
+            result.innerHTML += `Computer chooses ${computerSelection}<br>`;
 
-    console.log(`Final score: Player ${playerScore} - ${computerScore} Computer`)
+            round = playRound(playerSelection, computerSelection);
 
-    if (playerScore > computerScore) {
-        console.log("Player wins!");
-    }
-    else if (computerScore > playerScore) {
-        console.log("Computer wins!");
-    }
-    else {
-        console.log("We have a draw!");
-    }
+            // Determine round result
+            if (round === "player") {
+                playerScore++;
+                result.innerHTML += 'Player wins round<br>';
+            }
+            else if (round === "computer") {
+                computerScore++;
+                result.innerHTML += 'Computer wins round<br>';
+            }
+            else if (round === "draw") {
+                result.innerHTML += 'This round is a draw<br>';
+            }
+            result.innerHTML += `Current score: Player ${playerScore} - ${computerScore} Computer<br>`;
+            result.innerHTML += '<br>';
+
+            // Determine game result
+            if (playerScore === 5 || computerScore === 5) {
+                buttons.forEach(button => {
+                    button.disabled = true;
+                });
+                
+                if (playerScore > computerScore) {
+                    // result.innerHTML += 'Player wins!<br>';
+                    gameResult += 'Player wins!\n';
+                }
+                else if (computerScore > playerScore) {
+                    // result.innerHTML += 'Computer wins!<br>';
+                    gameResult += 'Computer wins!\n';
+                }
+                else {
+                    // result.innerHTML += 'We have a draw!<br>';
+                    gameResult += 'We have a draw!\n';
+                }
+
+                gameResult += `Final score: Player ${playerScore} - ${computerScore} Computer`;
+                // result.innerHTML += `Final score: Player ${playerScore} - ${computerScore} Computer`;
+                alert(gameResult);
+            }
+        });
+    });
 }
 
 game();
