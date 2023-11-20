@@ -72,32 +72,31 @@ function game() {
         button.addEventListener('click', (e) => {
             roundNum++;
 
-            result.innerHTML += `Round ${roundNum}<br>`;
+            result.innerHTML += `Round ${roundNum} - `;
 
             // Player selection
             playerSelection = e.target.textContent;
-            result.innerHTML += `Player chooses ${playerSelection}<br>`;
+            result.innerHTML += `Player chooses ${playerSelection} / `;
 
             // Computer selection
             computerSelection = getComputerChoice();
-            result.innerHTML += `Computer chooses ${computerSelection}<br>`;
+            result.innerHTML += `Computer chooses ${computerSelection} / `;
 
             round = playRound(playerSelection, computerSelection);
 
             // Determine round result
             if (round === "player") {
                 playerScore++;
-                result.innerHTML += 'Player wins round<br>';
+                result.innerHTML += 'Player wins round / ';
             }
             else if (round === "computer") {
                 computerScore++;
-                result.innerHTML += 'Computer wins round<br>';
+                result.innerHTML += 'Computer wins round / ';
             }
             else if (round === "draw") {
-                result.innerHTML += 'This round is a draw<br>';
+                result.innerHTML += 'This round is a draw / ';
             }
             result.innerHTML += `Current score: Player ${playerScore} - ${computerScore} Computer<br>`;
-            result.innerHTML += '<br>';
 
             // Determine game result
             if (playerScore === 5 || computerScore === 5) {
@@ -106,21 +105,21 @@ function game() {
                 });
                 
                 if (playerScore > computerScore) {
-                    // result.innerHTML += 'Player wins!<br>';
                     gameResult += 'Player wins!\n';
                 }
                 else if (computerScore > playerScore) {
-                    // result.innerHTML += 'Computer wins!<br>';
                     gameResult += 'Computer wins!\n';
                 }
                 else {
-                    // result.innerHTML += 'We have a draw!<br>';
                     gameResult += 'We have a draw!\n';
                 }
 
                 gameResult += `Final score: Player ${playerScore} - ${computerScore} Computer`;
-                // result.innerHTML += `Final score: Player ${playerScore} - ${computerScore} Computer`;
-                alert(gameResult);
+
+                // Use setTimeout to delay the alert
+                setTimeout(() => {
+                    alert(gameResult);
+                }, 0);
             }
         });
     });
