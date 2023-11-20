@@ -76,25 +76,25 @@ function game() {
 
             // Player selection
             playerSelection = e.target.textContent;
-            result.innerHTML += `Player chooses ${playerSelection} / `;
+            result.innerHTML += `Player chooses ${playerSelection}, `;
 
             // Computer selection
             computerSelection = getComputerChoice();
-            result.innerHTML += `Computer chooses ${computerSelection} / `;
+            result.innerHTML += `Computer chooses ${computerSelection}. `;
 
             round = playRound(playerSelection, computerSelection);
 
             // Determine round result
             if (round === "player") {
                 playerScore++;
-                result.innerHTML += 'Player wins round / ';
+                result.innerHTML += 'Player wins round. ';
             }
             else if (round === "computer") {
                 computerScore++;
-                result.innerHTML += 'Computer wins round / ';
+                result.innerHTML += 'Computer wins round. ';
             }
             else if (round === "draw") {
-                result.innerHTML += 'This round is a draw / ';
+                result.innerHTML += 'This round is a draw. ';
             }
             result.innerHTML += `Current score: Player ${playerScore} - ${computerScore} Computer<br>`;
 
